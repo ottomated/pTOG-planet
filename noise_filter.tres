@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://noise_filter.gd" type="Script" id=1]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+octaves = 2
+period = 1.0
+lacunarity = 2.45
+
+[resource]
+script = ExtResource( 1 )
+generator = SubResource( 1 )
+strength = 0.4
+height = 0.0
+enabled = true
+ridged = true

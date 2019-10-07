@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Planet.gd" type="Script" id=1]
+[ext_resource path="res://noise_filter.tres" type="Resource" id=2]
+
+[node name="Planet" type="Node"]
+script = ExtResource( 1 )
+noise_filters = [ ExtResource( 2 ) ]
