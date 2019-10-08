@@ -1,8 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Planet.gd" type="Script" id=1]
 [ext_resource path="res://noise_filter.tres" type="Resource" id=2]
 
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.0526316, 0.111111, 0.181287, 0.274854, 1 )
+colors = PoolColorArray( 0, 0.0726318, 0.546875, 1, 0.800095, 0.804688, 0.216888, 1, 0.114471, 0.472656, 0, 1, 0.496094, 0.313934, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 )
+
 [node name="Planet" type="Node"]
 script = ExtResource( 1 )
+gradient = SubResource( 1 )
 noise_filters = [ ExtResource( 2 ) ]

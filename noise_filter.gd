@@ -5,12 +5,17 @@ export(float) var strength = 1;
 export(float) var height = 0;
 export(bool) var enabled = true
 export(bool) var ridged = false
+export(bool) var mask = false
+var seeded = false
 
 func get_noise(point):
+	if (!seeded):
+		seeded = true
+		generator.seed = randi()
 	if (!enabled):
 		return 0
-	var noise = max(-10, generator.get_noise_3d(point.x, point.y, point.z) * strength - height)
+	var noise = generator.get_noise_3d(point.x * 512, point.y * 512, point.z * 512) - height
 	if ridged:
-		return 1 - abs(noise)
+		return max(0, (1 - abs(noise)) * strength)
 	else:
-		return noise
+		return max(0, noise * strength)

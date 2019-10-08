@@ -6,10 +6,12 @@ var NoiseFilter = preload("res://noise_filter.gd")
 
 export(float) var radius = 1;
 export(int) var resolution = 10;
+export(Gradient) var gradient = Gradient.new()
 export(Array, Resource) var noise_filters = [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	var TerrainFace = load("res://TerrainFace.gd");
 	var directions = [Vector3.UP, Vector3.DOWN, Vector3.LEFT, Vector3.RIGHT, Vector3.FORWARD, Vector3.BACK];
 	for direction in directions:
@@ -23,8 +25,12 @@ func _ready():
 func get_noise(point):
 	var elevation = 1;
 	for noise in noise_filters:
-		elevation += noise.get_noise(point)
+		if not noise.mask or elevation > 1:
+			elevation += noise.get_noise(point)
 	return elevation
 
-func calculate_point_on_planet(pointOnUnitSphere):
-	return pointOnUnitSphere * get_noise(pointOnUnitSphere) * radius
+func calculate_elevation_on_planet(pointOnUnitSphere):
+	return get_noise(pointOnUnitSphere) * radius;
+	
+func get_color_from_elevation(elevation):
+	return gradient.interpolate(elevation / radius - 1)

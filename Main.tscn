@@ -1,46 +1,64 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Planet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://noise_filter.gd" type="Script" id=2]
 [ext_resource path="res://noise_filter.tres" type="Resource" id=3]
 [ext_resource path="res://Camera.gd" type="Script" id=4]
+[ext_resource path="res://stars.png" type="Texture" id=5]
 
 [sub_resource type="OpenSimplexNoise" id=1]
-octaves = 5
-period = 3.0
+seed = 1
+octaves = 1
+period = 256.0
+persistence = 0.554
+lacunarity = 3.4
 
 [sub_resource type="Resource" id=2]
 script = ExtResource( 2 )
 generator = SubResource( 1 )
-strength = 1.0
+strength = 0.2
 height = 0.0
 enabled = true
 ridged = false
+mask = false
 
 [sub_resource type="OpenSimplexNoise" id=3]
 octaves = 2
-period = 0.1
+period = 32.0
 lacunarity = 2.45
 
 [sub_resource type="Resource" id=4]
 script = ExtResource( 2 )
 generator = SubResource( 3 )
-strength = 0.1
+strength = 0.05
 height = 0.0
 enabled = true
 ridged = false
+mask = true
+
+[sub_resource type="PanoramaSky" id=6]
+panorama = ExtResource( 5 )
+
+[sub_resource type="Environment" id=5]
+background_mode = 2
+background_sky = SubResource( 6 )
 
 [node name="Spatial" type="Spatial"]
 
 [node name="Planet" parent="." instance=ExtResource( 1 )]
-resolution = 101
+resolution = 100
 noise_filters = [ SubResource( 2 ), ExtResource( 3 ), SubResource( 4 ) ]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.569793, -0.0970111, 0.816042, -0.357403, 0.864925, 0.352375, -0.739999, -0.492437, 0.458156, 4.65363, 1.48244, 2.27427 )
+transform = Transform( 0.569793, -0.097011, 0.816042, -0.357403, 0.864925, 0.352375, -0.739999, -0.492437, 0.458156, 6.08908, 1.48244, 2.27427 )
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
 script = ExtResource( 4 )
 
 [node name="Camera" type="Camera" parent="KinematicBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.92232 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 5 )
+
+[editable path="Planet"]

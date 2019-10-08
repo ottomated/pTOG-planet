@@ -22,9 +22,8 @@ func construct_mesh():
 	var st = SurfaceTool.new()
 	var material = SpatialMaterial.new()
 	material.vertex_color_use_as_albedo = true
-	st.set_material(material)
+	set_material_override(material);
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	st.add_color(Color(1, 255, 0, 1));
 	
 	for y in range(resolution):
 		for x in range(resolution):
@@ -32,9 +31,10 @@ func construct_mesh():
 			var percent = Vector2(x,y) / (resolution - 1);
 			var pointOnUnitCube = localUp + (percent.x - 0.5) * 2 * axisA + (percent.y - 0.5) * 2 * axisB;
 			var pointOnUnitSphere = pointOnUnitCube.normalized();
-			st.add_color(Color(1, 0, 0));
 			st.add_uv(Vector2(0, 0))
-			st.add_vertex(parent.calculate_point_on_planet(pointOnUnitSphere));
+			var elevation = parent.calculate_elevation_on_planet(pointOnUnitSphere);
+			st.add_color(parent.get_color_from_elevation(elevation));
+			st.add_vertex(pointOnUnitSphere * elevation);
 			
 			if (x != resolution - 1 && y != resolution - 1):
 				st.add_index(i + resolution + 1);

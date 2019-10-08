@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Planet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://noise_filter.gd" type="Script" id=2]
+[ext_resource path="res://noise_filter.tres" type="Resource" id=3]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+seed = 1
+octaves = 1
+period = 256.0
+persistence = 0.554
+lacunarity = 3.4
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 2 )
+generator = SubResource( 1 )
+strength = 0.2
+height = 0.0
+enabled = true
+ridged = false
+mask = false
+
+[sub_resource type="OpenSimplexNoise" id=3]
+octaves = 2
+period = 32.0
+lacunarity = 2.45
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 2 )
+generator = SubResource( 3 )
+strength = 0.05
+height = 0.0
+enabled = true
+ridged = false
+mask = true
+
+[node name="Surface" type="Spatial"]
+
+[node name="Planet" parent="." instance=ExtResource( 1 )]
+resolution = 100
+noise_filters = [ SubResource( 2 ), ExtResource( 3 ), SubResource( 4 ) ]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.999614, 0.0277818, 0, -0.0277818, 0.999614, 0, 0, 2.00704 )
