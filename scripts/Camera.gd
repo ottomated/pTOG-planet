@@ -3,6 +3,7 @@ extends KinematicBody
 var dragging = false
 var rot_x = 0
 var rot_y = 0
+var env
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -10,6 +11,12 @@ var rot_y = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_process_input(true)
+	env = get_parent().get_node("WorldEnvironment")
+
+func _process(delta):
+	if Input.is_action_pressed("move_back"):
+		env.environment = load("res://resources/space.tres")
+		get_tree().change_scene_to(load("res://Surface.tscn"))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _input(event):

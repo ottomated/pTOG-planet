@@ -7,6 +7,7 @@ var radius;
 var axisA;
 var axisB;
 var parent;
+var elevations;
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -19,6 +20,9 @@ func _ready():
 	construct_mesh()
 
 func construct_mesh():
+	if (parent == null):
+		return;
+	elevations = []
 	var st = SurfaceTool.new()
 	var material = SpatialMaterial.new()
 	material.vertex_color_use_as_albedo = true
@@ -35,6 +39,7 @@ func construct_mesh():
 			var elevation = parent.calculate_elevation_on_planet(pointOnUnitSphere);
 			st.add_color(parent.get_color_from_elevation(elevation));
 			st.add_vertex(pointOnUnitSphere * elevation);
+			elevations.push_back(elevation);
 			
 			if (x != resolution - 1 && y != resolution - 1):
 				st.add_index(i + resolution + 1);
@@ -47,6 +52,7 @@ func construct_mesh():
 				
 	st.generate_normals(false)
 	mesh = st.commit()
+	create_convex_collision()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

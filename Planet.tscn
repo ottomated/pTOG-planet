@@ -1,7 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Planet.gd" type="Script" id=1]
-[ext_resource path="res://noise_filter.tres" type="Resource" id=2]
+[ext_resource path="res://scripts/Planet.gd" type="Script" id=1]
+[ext_resource path="res://resources/noise_filter.tres" type="Resource" id=2]
+
+
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.0526316, 0.111111, 0.181287, 0.274854, 1 )

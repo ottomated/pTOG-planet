@@ -2,7 +2,7 @@ tool
 extends Node
 
 var TerrainFace;
-var NoiseFilter = preload("res://noise_filter.gd")
+var NoiseFilter = preload("res://scripts/noise_filter.gd")
 
 export(float) var radius = 1;
 export(int) var resolution = 10;
@@ -12,7 +12,7 @@ export(Array, Resource) var noise_filters = [];
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	var TerrainFace = load("res://TerrainFace.gd");
+	var TerrainFace = load("res://scripts/TerrainFace.gd");
 	var directions = [Vector3.UP, Vector3.DOWN, Vector3.LEFT, Vector3.RIGHT, Vector3.FORWARD, Vector3.BACK];
 	for direction in directions:
 		var node = TerrainFace.new()

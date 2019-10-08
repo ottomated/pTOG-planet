@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://TerrainFace.gd" type="Script" id=1]
+[ext_resource path="res://scripts/TerrainFace.gd" type="Script" id=1]
 
 [sub_resource type="ArrayMesh" id=1]
 surfaces/0 = {
